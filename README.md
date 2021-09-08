@@ -14,8 +14,14 @@ Using TypeScript and React, your assignment is to implement a responsive signup 
 
 ___
 
-![desktop]("https://i.imgur.com/dSvfgkvm.jpg")
+#### Desktop
 
-![error]("https://i.imgur.com/jE2Zggl.jpg")
+![desktop](https://i.imgur.com/guOmN3Hm.jpg)
 
-![mobile]("https://i.imgur.com/Q8yCi4dm.jpg")
+#### With Error
+
+![error](https://i.imgur.com/jE2Zgglm.jpg)
+
+#### Mobile Screen
+
+![mobile](https://i.imgur.com/Q8yCi4dm.jpg)
