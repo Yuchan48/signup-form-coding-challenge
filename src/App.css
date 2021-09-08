@@ -1,0 +1,166 @@
+.App {
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.description {
+  width: 40%;
+  color: #fff;
+}
+
+.form_box {
+  width: 45%;
+  max-width: 600px;
+}
+
+.text_above_form {
+  width: 100%;
+  color: #fff;
+  background-color: var(--Blue);
+  border-radius: 8px;
+  font-size: 16px;
+  -webkit-box-shadow: 0px 7px 4px -1px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 7px 4px -1px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 7px 4px -1px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.text_above_form:hover {
+  background-color: hsl(249, 63%, 53%);
+}
+
+.text_above_form p {
+  padding: 1rem 0;
+}
+
+form {
+  margin: 2rem auto 0 auto;
+  padding: 2rem 0;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 7px 4px -1px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 7px 4px -1px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 7px 4px -1px rgba(0, 0, 0, 0.35);
+}
+
+.input_row {
+  padding: 0.6rem 0;
+  width: 85%;
+  position: relative;
+}
+
+input {
+  width: 100%;
+  padding: 0.6rem 0 0.6rem 0.5rem;
+  border: 1px solid rgb(110, 109, 109);
+  border-radius: 5px;
+}
+
+.input.warn {
+  border: 2px solid var(--Red);
+}
+
+.input.warn.email::placeholder {
+  color: var(--Red);
+  font-weight: 700;
+}
+
+.warning_span,
+.warning_invalid {
+  color: var(--Red);
+  font-size: 12px;
+  display: block;
+  margin-top: 0.5rem;
+  text-align: right;
+}
+
+.err_icon {
+  display: block;
+  position: absolute;
+  top: 17px;
+  right: 10px;
+  width: 25px;
+}
+
+ul {
+  text-align: end;
+  font-size: 14px;
+  color: var(--Red);
+}
+
+li {
+  list-style-position: inside;
+}
+
+button {
+  width: 85%;
+  background: var(--Green);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.6rem 0;
+  margin: 0.6rem 0 1.2rem 0;
+  -webkit-box-shadow: 0px 7px 4px -1px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 7px 4px -1px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 7px 4px -1px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: hsl(154, 68%, 42%);
+}
+
+button:active {
+  background-color: hsl(154, 76%, 36%);
+}
+
+.form_bottom_span {
+  font-size: 11px;
+  text-align: center;
+  color: rgb(107, 107, 107);
+  width: 85%;
+}
+
+.form_box a {
+  color: var(--Red);
+  font-weight: 600;
+}
+
+.form_box a:hover {
+  color: hsl(0, 65%, 60%);
+}
+
+@media (max-width: 850px) {
+  .App {
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem 0;
+  }
+
+  .description {
+    width: 80%;
+    margin-bottom: 3rem;
+  }
+
+  .form_box {
+    width: 80%;
+  }
+}
+
+@media (max-width: 450px) {
+  .description {
+    width: 85%;
+    margin-bottom: 3rem;
+  }
+
+  .form_box {
+    width: 85%;
+  }
+}

@@ -1,0 +1,66 @@
+:root {
+  --Red: hsl(0, 100%, 74%);
+  --Green: hsl(154, 59%, 51%);
+  --Blue: hsl(248, 32%, 49%);
+  --Dark_Blue: hsl(249, 10%, 26%);
+  --Grayish_Blue: hsl(246, 25%, 77%);
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  position: relative;
+  background-color: var(--Red);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  background-image: url("./images/bg-intro-desktop.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px #fff inset !important;
+  -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+}
+
+h1 {
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+button:focus {
+  outline: 0;
+}
+
+@media (max-width: 450px) {
+  body::before {
+    background-image: url("./images/bg-intro-mobile.png");
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+}
