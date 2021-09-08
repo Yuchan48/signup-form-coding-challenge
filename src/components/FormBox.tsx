@@ -3,64 +3,82 @@ import iconImg from "../images/icon-error.svg"
 
 type formElement = React.FormEvent<HTMLFormElement>;
 
-interface formState {
+interface FormState {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
 }
 
+interface ErrorState {
+    firstNameError: boolean,
+    lastNameError: boolean,
+    emailError: boolean,
+    passwordError: boolean
+}
+
 const FormBox: React.FC = () => {
-    const [formData, setFormData] = useState<formState>({
+    const [formData, setFormData] = useState<FormState>({
         firstName: "",
         lastName: "",
         email: "",
         password: ""
     })
+    const { firstName, lastName, email, password } = formData;
 
-    const [firstNameError, setFirstNameError] = useState<boolean>(false);
+    const onChange = (e: { target: { name: any; value: any; }; }): void => setFormData({ ...formData, [e.target.name]: e.target.value })
 
-    const [lastNameError, setLastNameError] = useState<boolean>(false);
+    const [inputErr, setInputError] = useState<ErrorState>({
+        firstNameError: false,
+        lastNameError: false,
+        emailError: false,
+        passwordError: false
+    });
 
-    const [emailError, setEmailError] = useState<boolean>(false);
+    const { firstNameError, lastNameError, emailError, passwordError } = inputErr;
+
     const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
     const [placeholder, setPlaceHolder] = useState<string>("Email Address");
 
-    const [passwordError, setPasswordError] = useState<boolean>(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
     const [showList, setShowList] = useState<boolean>(false)
 
 
     const submitHandler = (e: formElement): void => {
         e.preventDefault();
-        // check if any of the info is missing
 
-        setFirstNameError(formData.firstName ? false : true)
-        setLastNameError(formData.lastName ? false : true)
+        Object.keys(formData).map(ele => setInputError(prevState => ({ ...prevState, [`${ele}Error`]: isDataValid(ele) })));
 
-        isEmailValid(formData.email);
-        isPasswordValid(formData.password);
-
-        if (formData.firstName && formData.lastName && !emailError && !passwordError) alert("Success");
+        if (firstName && lastName && !emailError && !passwordError) alert("Success");
     }
 
-    const isEmailValid = (email: string): void => {
-        const emailRegex: RegExp = /^[\w]+[^\s@]+@[^\s@.,]+\.+[^\s@.,]{2,}$/i;
+    const isDataValid = (ele: string): boolean => {
+        if (ele === "email") {
+            const emailRegex: RegExp = /^[\w]+[^\s@]+@[^\s@.,]+\.+[^\s@.,]{2,}$/i;
+            setPlaceHolder(email && emailRegex.test(email) ? "Email Address" : "name@host.tld")
 
-        setEmailError((email && emailRegex.test(email)) ? false : true);
-        setEmailErrorMessage(!email ? "Email cannot be empty" : "Looks like this is not an email")
-        setPlaceHolder((email && emailRegex.test(email)) ? "Email Address" : "name@host.tld")
-    }
+            if (email && emailRegex.test(email)) return false;
+            setEmailErrorMessage(!email ? "Email cannot be empty" : "Looks like this is not an email")
 
-    const isPasswordValid = (password: string): void => {
-        const passwordRegex: RegExp = /.*?(?:[a-z].*?[0-9]|[0-9].*?[a-z]).*?/i;
+            return true;
+        } else if (ele === "password") {
+            const passwordRegex: RegExp = /.*?(?:[a-z].*?[0-9]|[0-9].*?[a-z]).*?/i;
+            setShowList(password && (password.length < 8 || !passwordRegex.test(password)) ? true : false)
+            if (password.length >= 8 && passwordRegex.test(password)) return false;
 
-        setPasswordError((password.length >= 8 && passwordRegex.test(password)) ? false : true);
-        setPasswordErrorMessage(!password ? "Password cannot be empty" : "Invalid Password")
-        setShowList(password && (password.length < 8 || !passwordRegex.test(password)) ? true : false)
+            setPasswordErrorMessage(!password ? "Password cannot be empty" : "Invalid Password")
+            return true;
+        } else {
+            if (ele === "firstName" && firstName) return false;
+
+            if (ele === "lastName" && lastName) return false;
+
+            return true;
+        }
     }
 
     return (
+
         <div className="form_box">
             <div className="text_above_form">
                 <p data-testid="header_form"><strong>Try it free 7 days</strong> then $20/mo. thereafter</p>
@@ -68,7 +86,13 @@ const FormBox: React.FC = () => {
 
             <form onSubmit={submitHandler}>
                 <div className="input_row">
-                    <input data-testid="input_firstname" className={`input ${firstNameError ? "warn" : ""}`} type="text" value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} placeholder="First Name" />
+                    <input data-testid="input_firstname"
+                        name="firstName"
+                        className={`input ${firstNameError ? "warn" : ""}`}
+                        type="text" value={firstName}
+                        onChange={onChange}
+                        placeholder="First Name"
+                    />
                     {firstNameError &&
                         <>
                             <img data-testid="firstname_err_image" className="err_icon" src={iconImg} alt="error" />
@@ -77,7 +101,13 @@ const FormBox: React.FC = () => {
                     }
                 </div>
                 <div className="input_row">
-                    <input data-testid="input_lastname" className={`input ${lastNameError ? "warn" : ""}`} type="text" value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} placeholder="Last Name" />
+                    <input data-testid="input_lastname"
+                        name="lastName"
+                        className={`input ${lastNameError ? "warn" : ""}`}
+                        type="text" value={lastName}
+                        onChange={onChange}
+                        placeholder="Last Name"
+                    />
                     {lastNameError &&
                         <>
                             <img data-testid="lastname_err_image" className="err_icon" src={iconImg} alt="error" />
@@ -88,7 +118,13 @@ const FormBox: React.FC = () => {
                 </div>
 
                 <div className="input_row">
-                    <input data-testid="input_email" className={`input ${emailError ? "warn" : ""} email`} type="text" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} placeholder={placeholder} />
+                    <input data-testid="input_email"
+                        name="email"
+                        className={`input ${emailError ? "warn" : ""} email`}
+                        type="text" value={email}
+                        onChange={onChange}
+                        placeholder={placeholder}
+                    />
                     {emailError &&
                         <>
                             <img data-testid="email_err_image" className="err_icon" src={iconImg} alt="error" />
@@ -97,7 +133,13 @@ const FormBox: React.FC = () => {
                 </div>
 
                 <div className="input_row">
-                    <input data-testid="input_password" className={`input ${passwordError ? "warn" : ""}`} type="password" value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} placeholder="Password" />
+                    <input data-testid="input_password"
+                        name="password"
+                        className={`input ${passwordError ? "warn" : ""}`}
+                        type="password" value={password}
+                        onChange={onChange}
+                        placeholder="Password"
+                    />
                     {passwordError &&
                         <>
                             <img data-testid="password_err_image" className="err_icon" src={iconImg} alt="error" />
