@@ -9,8 +9,8 @@ Using TypeScript and React, your assignment is to implement a responsive signup 
 ### Features
 
 - When missing required info, each field throws an error.
-- When email is invalid, it shows a sample email in the placeholder.
-- password must be at least 8 characters long, and contains both numbers and english alphabet characters
+- When an email is invalid, it shows a sample email in the placeholder.
+- password must be at least 8 characters long and contains both numbers and English alphabet characters
 
 ___
 
@@ -25,3 +25,6 @@ ___
 #### Mobile Screen
 
 ![mobile](https://i.imgur.com/Q8yCi4dm.jpg)
+
+
+
